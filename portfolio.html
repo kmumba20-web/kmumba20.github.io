@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: #080808;
+    color: #e8e4da;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-logo {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e8e4da;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a8880;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #e8e4da; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #5a5855;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: #f0ece0;
+    max-width: 780px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: #c8b99a;
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #6a6762;
+    max-width: 480px;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: #e8e4da;
+    color: #080808;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #f0ece0; }
+
+  .btn-secondary {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: #8a8880;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: #e8e4da;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    padding: 0 3rem;
+    margin: 0 0 5rem;
+  }
+
+  .section-divider hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #3e3c3a;
+    padding: 0 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* ── PROJECTS ── */
+  .projects {
+    padding: 0 3rem 6rem;
+  }
+
+  .project-card {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 3rem 0;
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    gap: 3rem;
+    align-items: start;
+    cursor: default;
+    transition: background 0.3s;
+  }
+
+  .project-card:last-child {
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .project-card:hover .project-title { color: #f0ece0; }
+
+  .project-index {
+    font-size: 11px;
+    color: #3e3c3a;
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+  }
+
+  .project-type {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5a5855;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    color: #c8c4b8;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    transition: color 0.3s;
+  }
+
+  .project-problem {
+    font-size: 12px;
+    color: #4a4845;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+  }
+
+  .project-solution {
+    font-size: 12px;
+    color: #6a6762;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #5a5855;
+    text-transform: uppercase;
+  }
+
+  .project-impact { text-align: right; }
+
+  .impact-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #3e3c3a;
+    margin-bottom: 0.75rem;
+  }
+
+  .impact-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: #c8b99a;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .impact-desc {
+    font-size: 10px;
+    color: #4a4845;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── RESUME ── */
+  .resume-section {
+    padding: 5rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .resume-block-title {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3e3c3a;
+    margin-bottom: 1.75rem;
+  }
+
+  .resume-profile {
+    font-size: 13px;
+    color: #6a6762;
+    line-height: 1.85;
+    font-weight: 300;
+  }
+
+  .competency-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .competency-name {
+    font-size: 11px;
+    color: #a0988a;
+    letter-spacing: 0.08em;
+  }
+
+  .competency-skills {
+    font-size: 11px;
+    color: #4a4845;
+    font-weight: 300;
+  }
+
+  .resume-cta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .footer-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: #c8c4b8;
+    line-height: 1.1;
+    max-width: 360px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4a4845;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: #e8e4da; }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+
+    .hero { padding: 7rem 1.5rem 3rem; }
+
+    .section-label { padding: 0 1.5rem; }
+    .projects { padding: 0 1.5rem 4rem; }
+
+    .project-card {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-index { display: none; }
+    .project-impact { text-align: left; }
+
+    .resume-section {
+      grid-template-columns: 1fr;
+      padding: 3rem 1.5rem;
+    }
+
+    .resume-cta { justify-content: flex-start; }
+
+    footer {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-headline { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+    .footer-links { flex-wrap: wrap; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-logo">D.A — Data Analyst</div>
+  <ul class="nav-links">
+    <li><a href="#showcase">Showcase</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow">Data Architecture &amp; Analytics</p>
+  <h1 class="hero-headline">
+    Precision in Every Cell.<br>
+    <em>Insight in</em> Every Pixel.
+  </h1>
+  <p class="hero-sub">
+    Expertly crafted Excel architectures and Power BI ecosystems designed to turn complex data into strategic clarity.
+  </p>
+  <div class="hero-ctas">
+    <a href="#showcase" class="btn-primary">View Showcases</a>
+    <!-- Replace href="#" with your actual resume link -->
+    <a href="#" class="btn-secondary">Download Resume</a>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ── PROJECTS ── -->
+<p class="section-label" id="showcase">Selected Work</p>
+
+<div class="projects">
+
+  <article class="project-card fade-in">
+    <div class="project-index">01</div>
+    <div>
+      <p class="project-type">Advanced Excel Modeling &amp; Forecasting</p>
+      <h2 class="project-title">The Strategic Financial Engine</h2>
+      <p class="project-problem">Fragmented financial data causing 20+ hours of manual reporting weekly.</p>
+      <p class="project-solution">A fully automated, VBA-powered financial engine with dynamic scenario toggles and real-time variance analysis.</p>
+      <div class="project-tags">
+        <span class="tag">Power Query</span>
+        <span class="tag">VBA</span>
+        <span class="tag">Advanced DAX</span>
+      </div>
+    </div>
+    <div class="project-impact">
+      <p class="impact-label">Impact</p>
+      <p class="impact-value">85%</p>
+      <p class="impact-desc">Reporting time<br>reduction</p>
+    </div>
+  </article>
+
+  <article class="project-card fade-in">
+    <div class="project-index">02</div>
+    <div>
+      <p class="project-type">Power BI Interactive Analytics</p>
+      <h2 class="project-title">Executive Risk Insights Dashboard</h2>
+      <p class="project-problem">Stakeholders lacked visibility into portfolio risk concentrations across regional sectors.</p>
+      <p class="project-solution">A multi-layered Power BI dashboard with complex RLS providing tailored views for every management tier.</p>
+      <div class="project-tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Data Modeling</span>
+      </div>
+    </div>
+    <div class="project-impact">
+      <p class="impact-label">Impact</p>
+      <p class="impact-value">15%</p>
+      <p class="impact-desc">Exposure outlier<br>identified proactively</p>
+    </div>
+  </article>
+
+  <article class="project-card fade-in">
+    <div class="project-index">03</div>
+    <div>
+      <p class="project-type">Excel Automation &amp; Data Visualization</p>
+      <h2 class="project-title">Operational Efficiency Tracker</h2>
+      <p class="project-problem">High operational lag in supply chain logistics with no centralized tracking system.</p>
+      <p class="project-solution">An integrated Excel tracker using Power Pivot to consolidate 5 disparate data sources into a sleek monitoring interface.</p>
+      <div class="project-tags">
+        <span class="tag">Power Pivot</span>
+        <span class="tag">External Data</span>
+        <span class="tag">Conditional Logic</span>
+      </div>
+    </div>
+    <div class="project-impact">
+      <p class="impact-label">Impact</p>
+      <p class="impact-value">10%</p>
+      <p class="impact-desc">Turnaround time<br>improvement, Q1</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ── RESUME ── -->
+<section class="resume-section fade-in" id="resume">
+  <div>
+    <p class="resume-block-title">Profile</p>
+    <p class="resume-profile">
+      Data-driven Credit &amp; Data Analyst with a focus on building resilient financial systems.
+      Specializing in the intersection of traditional finance and modern automation.
+    </p>
+  </div>
+  <div>
+    <p class="resume-block-title">Core Competencies</p>
+    <div class="competency-item">
+      <span class="competency-name">Data Architecture</span>
+      <span class="competency-skills">SQL — Power Query — Data Modeling</span>
+    </div>
+    <div class="competency-item">
+      <span class="competency-name">Visualization</span>
+      <span class="competency-skills">Power BI (DAX) — Advanced Excel Dashboards</span>
+    </div>
+    <div class="competency-item">
+      <span class="competency-name">Strategy</span>
+      <span class="competency-skills">Credit Risk Management — Financial Valuation — Process Automation</span>
+    </div>
+  </div>
+  <div class="resume-cta">
+    <!-- Replace href="#" with your actual resume link -->
+    <a href="#" class="btn-secondary">Download Full Resume</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="contact">
+  <h2 class="footer-headline">Let's build something smarter.</h2>
+  <div class="footer-links">
+    <!-- Replace href="#" with your actual links -->
+    <a href="#">LinkedIn</a>
+    <a href="#">Email Me</a>
+    <a href="#">GitHub</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
